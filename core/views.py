@@ -1,7 +1,10 @@
+import json
+
 import openai
 import dotenv
 import os
 
+from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -22,7 +25,7 @@ class Chatbot(APIView):
     def post(self, request):
         question = self.request.data.get('question', '')
         if not question:
-            return Response({'message': 'Question is required'}, status=status.HTTP_400_BAD_REQUEST)
+            return HttpResponse(json.dumps({'message': 'Question is required'}), status=status.HTTP_400_BAD_REQUEST)
 
         response = CLIENT.chat.completions.create(
             model='gpt-3.5-turbo',
@@ -31,4 +34,4 @@ class Chatbot(APIView):
             ]
         ).choices[0].message.content
 
-        return Response({'reply': response}, status=status.HTTP_200_OK)
+        return HttpResponse(json.dumps({'reply': response}), status=status.HTTP_200_OK, charset='utf-8')
