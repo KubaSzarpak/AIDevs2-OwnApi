@@ -51,6 +51,8 @@ class Google(APIView):
             ]
         ).choices[0].message.content
 
+        print(query)
+
         params = {
             'q': query,
             'location': 'Poland',
@@ -59,11 +61,8 @@ class Google(APIView):
             'api_key': '53087c7bf1cae0f7a11d62d01d3f2021dd2cd892ffcb47a0b61e1c70a00e4018'
         }
 
-        print(query)
-
         google_search = GoogleSearch(params)
 
         search_dict = google_search.get_dict()
-        print(search_dict)
         response = search_dict['organic_results'][1]['link']
         return HttpResponse(json.dumps({'reply': response}), status=status.HTTP_200_OK, charset='utf-8')
