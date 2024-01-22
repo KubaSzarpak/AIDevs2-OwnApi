@@ -44,8 +44,15 @@ class Google(APIView):
         question = self.request.data.get('question', '')
         print(question)
 
+        query = CLIENT.chat.completions.create(
+            model='gpt-3.5-turbo',
+            messages=[
+                {'role': 'user', 'content': f'Create google search query from this question: {question}'}
+            ]
+        ).choices[0].message.content
+
         params = {
-            'q': question,
+            'q': query,
             'location': 'Poland',
             'hl': 'pl',
             'gl': 'pl',
@@ -54,5 +61,5 @@ class Google(APIView):
 
         google_search = GoogleSearch(params)
 
-        response = google_search.get_dict()['search_metadata']['google_url']
+        response = google_search.get_dict()['organic_results'][1]['link']
         return HttpResponse(json.dumps({'reply': response}), status=status.HTTP_200_OK, charset='utf-8')
