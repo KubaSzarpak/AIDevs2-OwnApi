@@ -73,4 +73,14 @@ class FineTuning(APIView):
         question = self.request.data.get('question', '')
         print(question)
 
-        return HttpResponse(json.dumps({'reply': question}), status=status.HTTP_200_OK, charset='utf-8')
+        result = CLIENT.chat.completions.create(
+            model='ftjob-qOo06sRQ824RJpXduol7sngI',
+            messages=[
+                {'role': 'system', 'content': ''},
+                {'role': 'user', 'content': question},
+            ]
+        ).choices[0].message.content
+
+        print(result)
+
+        return HttpResponse(json.dumps({'reply': result}), status=status.HTTP_200_OK, charset='utf-8')
