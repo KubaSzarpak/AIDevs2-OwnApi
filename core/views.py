@@ -66,3 +66,11 @@ class Google(APIView):
         search_dict = google_search.get_dict()
         response = search_dict['organic_results'][0]['link']
         return HttpResponse(json.dumps({'reply': response}), status=status.HTTP_200_OK, charset='utf-8')
+
+
+class FineTuning(APIView):
+    def post(self, request):
+        question = self.request.data.get('question', '')
+        print(question)
+
+        return HttpResponse(json.dumps({'reply': question}), status=status.HTTP_200_OK, charset='utf-8')
