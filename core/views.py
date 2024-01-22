@@ -74,7 +74,7 @@ class FineTuning(APIView):
         print(question)
 
         result = CLIENT.chat.completions.create(
-            model='ftjob-qOo06sRQ824RJpXduol7sngI',
+            model='ft:gpt-3.5-turbo-1106:neocode-studio::8jxCFIqW',
             messages=[
                 {'role': 'system', 'content': ''},
                 {'role': 'user', 'content': question},
