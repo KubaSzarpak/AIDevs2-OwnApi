@@ -3,10 +3,10 @@ version: '3.8'
 services:
   api:
     build: .
-    command: python manage.py runserver [::]:80
+    command: python manage.py runserver [::]:20207
     volumes:
       - .:/usr/app/
     ports:
-      - 80:80
+      - "[::]:20207:20207"
     env_file:
       - ./.env
