@@ -25,6 +25,7 @@ CLIENT = openai.Client(api_key=OPENAI_API_KEY)
 class Chatbot(APIView):
     def post(self, request):
         question = self.request.data.get('question', '')
+        print(question)
         if not question:
             return HttpResponse(json.dumps({'message': 'Question is required'}), status=status.HTTP_400_BAD_REQUEST)
 
@@ -41,6 +42,7 @@ class Chatbot(APIView):
 class Google(APIView):
     def post(self, request):
         question = self.request.data.get('question', '')
+        print(question)
 
         params = {
             'q': question,
