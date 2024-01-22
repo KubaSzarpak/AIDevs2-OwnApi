@@ -64,5 +64,5 @@ class Google(APIView):
         google_search = GoogleSearch(params)
 
         search_dict = google_search.get_dict()
-        response = search_dict['organic_results'][1]['link']
+        response = search_dict['organic_results'][0]['link']
         return HttpResponse(json.dumps({'reply': response}), status=status.HTTP_200_OK, charset='utf-8')
